@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 
 const ExpenseSchema = new mongoose.Schema({
     title: {
@@ -15,7 +16,7 @@ const ExpenseSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        default: "income",
+        default:"expense"
     },
     date: {
         type: Date,
@@ -32,7 +33,7 @@ const ExpenseSchema = new mongoose.Schema({
         required: true,
         maxLength: 20,
         trim: true
-    }
+    },
 }, {timestamps: true})
 
 module.exports = mongoose.model('Expense', ExpenseSchema)
