@@ -3,15 +3,18 @@ import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
+import { useAuth0 } from '@auth0/auth0-react'
+import { LoginButton } from '../LoginButton';
+import { LogoutButton } from '../LogoutButton';
 
 function Navigation({active, setActive}) {
-    
+    const { user, isAuthenticated} = useAuth0();
     return (
         <NavStyled>
             <div className="user-con">
-                <img src={avatar} alt="" />
+            {user?.picture && <img src={user.picture} alt={user?.name}/>}
                 <div className="text">
-                    <h2>Mike</h2>
+                    <h2>{user?.name}</h2>
                     <p>Your Money</p>
                 </div>
             </div>
@@ -29,7 +32,8 @@ function Navigation({active, setActive}) {
             </ul>
             <div className="bottom-nav">
                 <li>
-                    {signout} Sign Out
+                    <LogoutButton/> 
+                    <LoginButton/>
                 </li>
             </div>
         </NavStyled>

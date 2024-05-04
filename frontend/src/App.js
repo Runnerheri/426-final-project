@@ -8,8 +8,12 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income'
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
+import { LoginButton } from './Components/LoginButton';
+import { LogoutButton } from './Components/LogoutButton';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [active, setActive] = useState(1)
 
   const global = useGlobalContext()
@@ -36,14 +40,22 @@ function App() {
 
   return (
     <AppStyled bg={bg} className="App">
-      {orbMemo}
-      <MainLayout>
-        <Navigation active={active} setActive={setActive} />
-        <main>
-          {displayData()}
-        </main>
-      </MainLayout>
+      {isAuthenticated ? (
+        <>
+          {orbMemo}
+          <MainLayout>
+            <Navigation active={active} setActive={setActive} />
+            <main>{displayData()}</main>
+          </MainLayout>
+        </>
+      ) : (
+        <div>
+          <h2>Please sign in to continue.</h2>
+          <LoginButton />
+        </div>
+      )}
     </AppStyled>
+  
   );
 }
 
