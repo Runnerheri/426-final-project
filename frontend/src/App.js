@@ -11,6 +11,7 @@ import { useGlobalContext } from './context/globalContext';
 import { LoginButton } from './Components/LoginButton';
 import { LogoutButton } from './Components/LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
+import Profile from './Components/Profile';
 
 function App() {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -45,7 +46,11 @@ function App() {
           {orbMemo}
           <MainLayout>
             <Navigation active={active} setActive={setActive} />
-            <main>{displayData()}</main>
+            <main>
+              {displayData()}
+              <Profile/>
+            
+            </main>
           </MainLayout>
         </>
       ) : (
